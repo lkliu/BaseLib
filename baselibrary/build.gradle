@@ -36,4 +36,6 @@ dependencies {
     compile rootProject.ext.dependencies["butterknife"]
     compile rootProject.ext.dependencies["rxlifecycle-components"]
     compile rootProject.ext.dependencies["rxlifecycle"]
+    //权限请求
+    compile rootProject.ext.dependencies["rxpermissions"]
 }

@@ -21,6 +21,7 @@ ext {
             "retrofit2-adapter"     : "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0",
             "rxlifecycle"           : "com.trello.rxlifecycle2:rxlifecycle-navi:2.1.0",
             "rxlifecycle-components": "com.trello.rxlifecycle2:rxlifecycle-components:2.1.0",
+            "rxpermissions"         : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar",
             //-----------------end--------------------------------------------
             "butterknife"           : "com.jakewharton:butterknife:8.4.0",
             "butterknife-apt"       : "com.jakewharton:butterknife-compiler:8.4.0",
