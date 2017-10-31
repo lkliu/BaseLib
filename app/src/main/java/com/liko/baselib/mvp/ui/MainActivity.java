@@ -5,10 +5,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.liko.base.entity.FristBean;
 import com.liko.base.mvp.ui.BaseActivity;
 import com.liko.base.utils.PermissionsUtil;
 import com.liko.baselib.R;
+import com.liko.baselib.R2;
 import com.liko.baselib.mvp.contract.MainContract;
 import com.liko.baselib.mvp.presenter.MainPresenter;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -21,8 +24,9 @@ import butterknife.OnClick;
  * @Date 17/10/27 下午6:28
  * @Description
  */
+@Route(path = "/home/main")
 public class MainActivity extends BaseActivity<MainContract.presenter> implements MainContract.View {
-    @BindView(R.id.tv_content)
+    @BindView(R2.id.tv_content)
     TextView tvContent;
 
     private RxPermissions permissions;
@@ -30,6 +34,12 @@ public class MainActivity extends BaseActivity<MainContract.presenter> implement
     @Override
     protected void initData() {
         permissions = new RxPermissions(this);
+//        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ARouter.getInstance().build("/launch/test").navigation();
+//            }
+//        });
     }
 
 
@@ -50,7 +60,6 @@ public class MainActivity extends BaseActivity<MainContract.presenter> implement
 
     @Override
     public void launchActivity(Class activityClass, Bundle bundle, int requestCode) {
-
     }
 
     @Override
@@ -87,39 +96,44 @@ public class MainActivity extends BaseActivity<MainContract.presenter> implement
         tvContent.setText(fristBean.getResults().size() + "--");
     }
 
-    @OnClick({R.id.button, R.id.button1, R.id.button2})
+    @OnClick({R2.id.button, R2.id.button1, R2.id.button2})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.button:
-                mPresenter.getFristBean();
-                break;
-            case R.id.button1:
-                PermissionsUtil.callPhone(new PermissionsUtil.RequestPermission() {
-                    @Override
-                    public void onRequestPermissionSuccess(boolean flag) {
-                        if (flag) {
-                            Toast.makeText(context, "请求打电话权限成功", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "请求权限取消", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, permissions, this);
-                break;
-            case R.id.button2:
-                PermissionsUtil.launchCamera(new PermissionsUtil.RequestPermission() {
-                    @Override
-                    public void onRequestPermissionSuccess(boolean flag) {
-                        if (flag) {
-                            Toast.makeText(context, "请求权限成功", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "请求权限取消", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, permissions, this);
-                break;
-            default:
-                break;
+        int i = view.getId();
+        if (i==R.id.button){
+            ARouter.getInstance().build("/launch/test").navigation();
         }
+//        switch (view.getId()) {
+//            case R.id.button:
+//
+//                break;
+//            case R.id.button1:
+//                PermissionsUtil.callPhone(new PermissionsUtil.RequestPermission() {
+//                    @Override
+//                    public void onRequestPermissionSuccess(boolean flag) {
+//                        if (flag) {
+//                            Toast.makeText(context, "请求打电话权限成功", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(context, "请求权限取消", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, permissions, this);
+//                break;
+//            case R.id.button2:
+//                PermissionsUtil.launchCamera(new PermissionsUtil.RequestPermission() {
+//                    @Override
+//                    public void onRequestPermissionSuccess(boolean flag) {
+//                        if (flag) {
+//                            Toast.makeText(context, "请求权限成功", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(context, "请求权限取消", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }, permissions, this);
+//                break;
+//            default:
+//                break;
+//        }
 
     }
+
 }

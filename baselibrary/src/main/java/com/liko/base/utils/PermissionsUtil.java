@@ -1,7 +1,6 @@
 package com.liko.base.utils;
 
 import android.Manifest;
-import android.util.Log;
 
 import com.liko.base.mvp.base.IBaseView;
 import com.tbruyelle.rxpermissions2.Permission;

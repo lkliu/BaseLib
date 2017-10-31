@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -10,6 +10,11 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -20,12 +25,17 @@ android {
 }
 
 dependencies {
+    //引入model
+    compile project(':baselibrary')
+    compile project(':launchlibrary')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    testCompile rootProject.ext.dependencies["junit"]
     compile rootProject.ext.dependencies["constraint-layout"]
-    apt rootProject.ext.dependencies["butterknife-apt"]
-    //引入model
-    compile project(':baselibrary')
+    compile 'com.alibaba:arouter-api:1.2.4'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+    //View注解
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

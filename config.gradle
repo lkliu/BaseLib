@@ -23,7 +23,10 @@ ext {
             "rxlifecycle-components": "com.trello.rxlifecycle2:rxlifecycle-components:2.1.0",
             "rxpermissions"         : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar",
             //-----------------end--------------------------------------------
-            "butterknife"           : "com.jakewharton:butterknife:8.4.0",
+            "butterknife"           : "com.jakewharton:butterknife:8.8.1",
             "butterknife-apt"       : "com.jakewharton:butterknife-compiler:8.4.0",
+            //------------------------arouter------------------
+            "arouter"               : "com.alibaba:arouter-api:1.2.1",
+            "arouter-compiler"      : "com.alibaba:arouter-compiler:1.1.2"
     ]
 }
