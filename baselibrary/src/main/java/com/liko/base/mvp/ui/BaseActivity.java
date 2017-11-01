@@ -1,5 +1,6 @@
 package com.liko.base.mvp.ui;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
@@ -13,6 +14,7 @@ import com.liko.base.R;
 import com.liko.base.mvp.base.BaseApplication;
 import com.liko.base.mvp.base.BasePresenter;
 import com.liko.base.mvp.base.IBaseView;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -36,6 +38,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
      * 是否加入到activity的list，管理
      */
     public static final String IS_NOT_ADD_ACTIVITY_LIST = "is_add_activity_list";
+    protected int mColorId = R.color.bg_title;//状态栏的默认背景色
+    private SystemBarTintManager tintManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,24 +62,70 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
         bundle = getIntent().getExtras();
         mActivity = this;
         initData();
-        setWindowStatusBarColor();
-
+        initStateBar();
     }
 
-    /**
-     * 沉浸式状态栏
-     */
-    private void setWindowStatusBarColor() {
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = mActivity.getWindow();
-                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(getResources().getColor(R.color.bg_title));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void initStateBar() {
+        setmColorId(mColorId);
+        if (isNeedLoadStatusBar()) {
+            loadStateBar();
         }
     }
+
+    private void loadStateBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            // 激活状态栏
+            tintManager.setStatusBarTintEnabled(true);
+            // enable navigation bar tint 激活导航栏
+            tintManager.setNavigationBarTintEnabled(true);
+            //设置系统栏设置颜色
+            //tintManager.setTintColor(R.color.red);
+            //给状态栏设置颜色
+            tintManager.setStatusBarTintResource(getmColorId());
+            //Apply the specified drawable or color resource to the system navigation bar.
+            //给导航栏设置资源
+            tintManager.setNavigationBarTintResource(getmColorId());
+        }
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
+//        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+//        win.setPadding(0, config.getPixelInsetTop(true), config.getPixelInsetRight(), config.getPixelInsetBottom());
+    }
+
+    public int getmColorId() {
+        return mColorId;
+    }
+
+    public void setmColorId(int mColorId) {
+        this.mColorId = mColorId;
+    }
+
+
+    /**
+     * 子类是否需要实现沉浸式,默认需要
+     *
+     * @return
+     */
+    protected boolean isNeedLoadStatusBar() {
+        return true;
+    }
+
 
     protected abstract void initData();
 
@@ -94,7 +144,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends RxAppCompatA
             mApplication.getAppManager().setCurrentActivity(null);
         }
     }
-
 
     @Override
     protected void onDestroy() {

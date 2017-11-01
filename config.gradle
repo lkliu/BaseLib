@@ -27,6 +27,8 @@ ext {
             "butterknife-apt"       : "com.jakewharton:butterknife-compiler:8.4.0",
             //------------------------arouter------------------
             "arouter"               : "com.alibaba:arouter-api:1.2.1",
-            "arouter-compiler"      : "com.alibaba:arouter-compiler:1.1.2"
+            "arouter-compiler"      : "com.alibaba:arouter-compiler:1.1.2",
+            //沉浸式状态栏
+            "systembartint"         : "com.readystatesoftware.systembartint:systembartint:1.0.3"
     ]
 }

@@ -36,5 +36,6 @@ dependencies {
     compile rootProject.ext.dependencies["rxlifecycle"]
     //权限请求
     compile rootProject.ext.dependencies["rxpermissions"]
+    compile rootProject.ext.dependencies["systembartint"]
 
 }
