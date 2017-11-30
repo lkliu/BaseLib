@@ -34,8 +34,11 @@ dependencies {
     })
     testCompile rootProject.ext.dependencies["junit"]
     compile rootProject.ext.dependencies["constraint-layout"]
+    compile rootProject.ext.dependencies["recyclerview"]
+    compile "com.zhy:magic-viewpager:1.0.1"
     compile 'com.alibaba:arouter-api:1.2.4'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.27'
     //View注解
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

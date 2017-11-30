@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleIndicator="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,39 +11,65 @@
         android:clipToPadding="false"
         android:fitsSystemWindows="true">
 
+        <RelativeLayout
+            android:id="@+id/flpage"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@android:color/white"
+            android:clipChildren="false">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/id_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:clipChildren="false" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recy_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textSize="10sp"
             android:gravity="center"
-            android:text="Hello World!" />
+            android:text="Hello World!"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/flpage"
             android:layout_centerHorizontal="true"
-            android:textSize="10sp"
-            android:text="请求数据" />
+            android:text="请求数据"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/button"
-            android:textSize="10sp"
             android:layout_centerHorizontal="true"
-            android:text="请求权限打电话" />
+            android:text="请求权限打电话"
+            android:textSize="10sp" />
 
         <Button
             android:id="@+id/button2"
-            android:textSize="10sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/button1"
             android:layout_centerHorizontal="true"
-            android:text="请求数据多个" />
+            android:text="请求数据多个"
+            android:textSize="10sp" />
     </RelativeLayout>
 </RelativeLayout>
